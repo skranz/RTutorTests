@@ -1,0 +1,52 @@
+# Problemset DataFramesExample
+
+Example of data frame printing in an RTutor Problemset
+
+Adapt the working directory below and run the setup chunk in RStudio. This creates the problem set files and the sample solution from this solution file. 
+
+#< ignore
+```{r "create_ps",include=FALSE , eval=!TRUE}
+library(RTutor)
+setwd("D:/libraries/RTutor/RTutor/inst/examples")
+ps.name = "DataFramesExample"; sol.file = paste0(ps.name,"_sol.Rmd")
+libs = c() 
+# Important add the parameter addons="quiz" !
+create.ps(sol.file=sol.file, ps.name=ps.name,libs=libs)
+
+# You can set default parameters for showing data frames here
+show.ps(ps.name, round.digits=4, table.max.rows=20)
+
+stop()
+```
+
+Load libraries so that knit HTML also works
+```{r}
+library(yaml)
+library(magrittr)
+library(leaflet)
+```
+
+#>
+
+## Exercise 1 -- Table outputs
+
+The shiny based inteface of RTutor shows data.frames by default as html tables. This example illustrates how, you can adapt the settings of how data.frames are shown.
+
+Use default settings for printing data.frames, that may have been adapted in the call to `show.ps`.
+```{r optional=TRUE}
+#< task_notest
+T = 40
+data.frame(x=runif(T),y=runif(T)*100000)
+2*2
+#>
+```
+
+You can overwrite the default settings for specific chunks, by specifying chunk options.
+```{r signif.digits=5, round.digits=3, table.max.rows=30, html.data.frame=FALSE, optional=TRUE}
+#< task_notest
+T = 40
+data.frame(x=runif(T),y=runif(T)*100000, z=runif(T))
+#>
+```
+
+That's all!

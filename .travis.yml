@@ -1,0 +1,34 @@
+language: r
+warnings_are_errors: false
+sudo: false
+cache: packages
+
+repos:
+  CRAN: https://cloud.r-project.org
+  sebkranz: https://skranz-repo.github.io/drat/
+
+r_packages:
+  - ggplot2
+  - testthat
+
+r_github_packages:
+  - skranz/testex
+  - skranz/RTutor
+
+notifications:
+  email:
+    recipients:
+      - sebkranz@gmail.com
+    on_success: always # default: change
+    on_failure: always # default: always
+
+script:
+  - echo "travis_fold:start:run_et folding starts"
+  - Rscript tests/tests.r
+  - echo "travis_fold:end:run_et folding ends"
+
+after_failure:
+  - Rscript testex/report.R
+
+after_success:
+  - Rscript testex/report.R
